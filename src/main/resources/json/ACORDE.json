@@ -1,0 +1,50 @@
+{
+  "name": "ACORDE",
+  "subcomponents" : [
+    {
+      "name": "Scintillator module",
+      "subcomponents" : [
+        {
+          "name": "Laser",
+          "subcomponents" : [],
+          "ruleList" : [
+            {
+              "antecedents" : [
+                {
+                  "error" : "Laser not powered"
+                }
+              ],
+              "consequent" : {
+                "error" : "Laser module not working"
+              }
+            }
+          ]
+        }
+      ],
+      "ruleList" : [
+        {
+          "antecedents" : [
+            {
+              "error" : "Laser module not working"
+            }
+          ],
+          "consequent" : {
+            "error" : "Scintillator module error"
+          }
+        }
+      ]
+    }
+  ],
+  "ruleList" : [
+    {
+      "antecedents" : [
+        {
+          "error" : "Scintillator module error"
+        }
+      ],
+      "consequent" : {
+        "error" : "ACORDE internal error"
+      }
+    }
+  ]
+}
