@@ -1,0 +1,55 @@
+{
+  "name": "EMCal",
+  "subcomponents" : [
+    {
+      "name": "Charge Sensitive Preamplifier",
+      "subcomponents" : [
+        {
+          "name": "Avalanche PhotoDiode",
+          "subcomponents" : [],
+          "ruleList" : [
+            {
+              "antecedents" : [],
+              "consequent" : {
+                "error" : "APD not powered"
+              }
+            }
+          ]
+        }
+      ],
+      "ruleList" : [
+        {
+          "antecedents" : [
+            {
+              "error" : "APD not powered"
+            }
+          ],
+          "consequent" : {
+            "error" : "No APD signal received"
+          }
+        },
+        {
+          "antecedents" : [],
+          "consequent" : {
+            "error" : "CSP amplifying too much noise"
+          }
+        }
+      ]
+    }
+  ],
+  "ruleList" : [
+    {
+      "antecedents" : [
+        {
+          "error" : "No APD signal received"
+        },
+        {
+          "error" : "CSP amplifying too much noise"
+        }
+      ],
+      "consequent" : {
+        "error" : "EMCal cannot start recording data"
+      }
+    }
+  ]
+}

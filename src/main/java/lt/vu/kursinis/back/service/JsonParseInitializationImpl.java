@@ -29,17 +29,21 @@ public class JsonParseInitializationImpl implements JsonParseInitialization {
     private final FactRepository factRepository;
     private final ComponentRepository componentRepository;
 
+    private static final String[] initComponentsJsons = {"ACORDE", "EMCal"};
+
     public void instantiateComponentFromJson() {
         try {
-            URL resourceUrl = getClass().getClassLoader().getResource("json/ACORDE.json");
-            assert resourceUrl != null;
-            byte[] jsonData = Files.readAllBytes(Paths.get(resourceUrl.toURI()));
-            ObjectMapper objectMapper = new ObjectMapper();
-            Component component = objectMapper.readValue(jsonData, Component.class);
+            for (String initComponentsJson : initComponentsJsons) {
+                URL resourceUrl = getClass().getClassLoader().getResource("json/" + initComponentsJson +  ".json");
+                if (resourceUrl == null) {
+                    continue;
+                }
+                byte[] jsonData = Files.readAllBytes(Paths.get(resourceUrl.toURI()));
+                ObjectMapper objectMapper = new ObjectMapper();
+                Component component = objectMapper.readValue(jsonData, Component.class);
 
-            instantiateFromRoot(component);
-
-            System.out.println("gay");
+                instantiateFromRoot(component);
+            }
         } catch (IOException | URISyntaxException e) {
             System.out.println("File not found GG");
         }

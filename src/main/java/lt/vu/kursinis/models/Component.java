@@ -15,15 +15,13 @@ public class Component {
     @Id
     String id;
     String name;
+    List<Rule> ruleList = new ArrayList<>();
 
     @DBRef(lazy = true)
     List<Component> componentsPartOf = new ArrayList<>();
 
     @DBRef(lazy = true)
     List<Component> subcomponents = new ArrayList<>();
-
-    @DBRef(lazy = true)
-    List<Rule> ruleList = new ArrayList<>();
 
     @Override
     public String toString() {

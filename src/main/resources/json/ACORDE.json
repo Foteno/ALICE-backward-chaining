@@ -3,33 +3,30 @@
   "subcomponents" : [
     {
       "name": "Scintillator module",
-      "subcomponents" : [
-        {
-          "name": "Laser",
-          "subcomponents" : [],
-          "ruleList" : [
-            {
-              "antecedents" : [
-                {
-                  "error" : "Laser not powered"
-                }
-              ],
-              "consequent" : {
-                "error" : "Laser module not working"
-              }
-            }
-          ]
-        }
-      ],
+      "subcomponents" : [],
       "ruleList" : [
         {
-          "antecedents" : [
-            {
-              "error" : "Laser module not working"
-            }
-          ],
+          "antecedents" : [],
           "consequent" : {
-            "error" : "Scintillator module error"
+            "error" : "Scintillator module is faulty"
+          }
+        },
+        {
+          "antecedents" : [],
+          "consequent" : {
+            "error" : "Scintillator module not powered"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scintillator signal discriminator",
+      "subcomponents" : [],
+      "ruleList" : [
+        {
+          "antecedents" : [],
+          "consequent" : {
+            "error" : "Signals from scintillator modules corrupted"
           }
         }
       ]
@@ -39,11 +36,33 @@
     {
       "antecedents" : [
         {
-          "error" : "Scintillator module error"
+          "error" : "Scintillator module is faulty"
         }
       ],
       "consequent" : {
-        "error" : "ACORDE internal error"
+        "error" : "ACORDE cannot be started"
+      }
+    },
+
+    {
+      "antecedents" : [
+        {
+          "error" : "Scintillator module not powered"
+        }
+      ],
+      "consequent" : {
+        "error" : "ACORDE cannot be started"
+      }
+    },
+
+    {
+      "antecedents" : [
+        {
+          "error" : "Signals from scintillator modules corrupted"
+        }
+      ],
+      "consequent" : {
+        "error" : "ACORDE cannot be started"
       }
     }
   ]
