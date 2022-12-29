@@ -1,32 +1,71 @@
 {
-  "name": "ACORDE",
+  "name" : "ALICE",
+  "componentsPartOf" : [],
   "subcomponents" : [
     {
-      "name": "Scintillator module",
-      "subcomponents" : [],
+      "name": "ACORDE",
+      "componentsPartOf" : [],
+      "subcomponents" : [
+        {
+          "name": "Scintillator module",
+          "subcomponents" : [],
+          "ruleList" : [
+            {
+              "antecedents" : [],
+              "consequent" : {
+                "error" : "Scintillator module is faulty"
+              }
+            },
+            {
+              "antecedents" : [],
+              "consequent" : {
+                "error" : "Scintillator module not powered"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Scintillator signal discriminator",
+          "subcomponents" : [],
+          "ruleList" : [
+            {
+              "antecedents" : [],
+              "consequent" : {
+                "error" : "Signals from scintillator modules corrupted"
+              }
+            }
+          ]
+        }
+      ],
       "ruleList" : [
         {
-          "antecedents" : [],
+          "antecedents" : [
+            {
+              "error" : "Scintillator module is faulty"
+            }
+          ],
           "consequent" : {
-            "error" : "Scintillator module is faulty"
+            "error" : "ACORDE cannot be started"
           }
         },
         {
-          "antecedents" : [],
+          "antecedents" : [
+            {
+              "error" : "Scintillator module not powered"
+            }
+          ],
           "consequent" : {
-            "error" : "Scintillator module not powered"
+            "error" : "ACORDE cannot be started"
           }
-        }
-      ]
-    },
-    {
-      "name": "Scintillator signal discriminator",
-      "subcomponents" : [],
-      "ruleList" : [
+        },
         {
-          "antecedents" : [],
+          "antecedents" : [
+            {
+              "error" : "Signals from scintillator modules corrupted"
+            }
+          ],
           "consequent" : {
-            "error" : "Signals from scintillator modules corrupted"
+            "error" : "ACORDE cannot be started"
           }
         }
       ]
@@ -36,33 +75,11 @@
     {
       "antecedents" : [
         {
-          "error" : "Scintillator module is faulty"
+          "error" : "ACORDE cannot be started"
         }
       ],
       "consequent" : {
-        "error" : "ACORDE cannot be started"
-      }
-    },
-
-    {
-      "antecedents" : [
-        {
-          "error" : "Scintillator module not powered"
-        }
-      ],
-      "consequent" : {
-        "error" : "ACORDE cannot be started"
-      }
-    },
-
-    {
-      "antecedents" : [
-        {
-          "error" : "Signals from scintillator modules corrupted"
-        }
-      ],
-      "consequent" : {
-        "error" : "ACORDE cannot be started"
+        "error" : "ALICE cannot start data taking run"
       }
     }
   ]

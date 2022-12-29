@@ -1,17 +1,41 @@
 {
-  "name": "EMCal",
+  "name" : "ALICE",
+  "componentsPartOf" : [],
   "subcomponents" : [
     {
-      "name": "Charge Sensitive Preamplifier",
+      "name": "EMCal",
       "subcomponents" : [
         {
-          "name": "Avalanche PhotoDiode",
-          "subcomponents" : [],
+          "name": "Charge Sensitive Preamplifier",
+          "subcomponents" : [
+            {
+              "name": "Avalanche PhotoDiode",
+              "subcomponents" : [],
+              "ruleList" : [
+                {
+                  "antecedents" : [],
+                  "consequent" : {
+                    "error" : "APD not powered"
+                  }
+                }
+              ]
+            }
+          ],
           "ruleList" : [
+            {
+              "antecedents" : [
+                {
+                  "error" : "APD not powered"
+                }
+              ],
+              "consequent" : {
+                "error" : "No APD signal received"
+              }
+            },
             {
               "antecedents" : [],
               "consequent" : {
-                "error" : "APD not powered"
+                "error" : "CSP amplifying too much noise"
               }
             }
           ]
@@ -21,17 +45,14 @@
         {
           "antecedents" : [
             {
-              "error" : "APD not powered"
+              "error" : "No APD signal received"
+            },
+            {
+              "error" : "CSP amplifying too much noise"
             }
           ],
           "consequent" : {
-            "error" : "No APD signal received"
-          }
-        },
-        {
-          "antecedents" : [],
-          "consequent" : {
-            "error" : "CSP amplifying too much noise"
+            "error" : "EMCal cannot start recording data"
           }
         }
       ]
@@ -41,14 +62,11 @@
     {
       "antecedents" : [
         {
-          "error" : "No APD signal received"
-        },
-        {
-          "error" : "CSP amplifying too much noise"
+          "error" : "EMCal cannot start recording data"
         }
       ],
       "consequent" : {
-        "error" : "EMCal cannot start recording data"
+        "error" : "ALICE cannot start data taking run"
       }
     }
   ]

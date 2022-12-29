@@ -9,7 +9,6 @@ import lt.vu.kursinis.back.repository.RuleRepository;
 import lt.vu.kursinis.models.Component;
 import lt.vu.kursinis.models.Fact;
 import lt.vu.kursinis.models.Rule;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -32,6 +32,9 @@ public class JsonParseInitializationImpl implements JsonParseInitialization {
     private static final String[] initComponentsJsons = {"ACORDE", "EMCal"};
 
     public void instantiateComponentFromJson() {
+        ruleRepository.deleteAll();
+        factRepository.deleteAll();
+        componentRepository.deleteAll();
         try {
             for (String initComponentsJson : initComponentsJsons) {
                 URL resourceUrl = getClass().getClassLoader().getResource("json/" + initComponentsJson +  ".json");
@@ -82,9 +85,13 @@ public class JsonParseInitializationImpl implements JsonParseInitialization {
                 componentRepository.save(savedSubcomponent);
             }
         } else {
-            componentExisting.setComponentsPartOf(component.getComponentsPartOf());
-            componentExisting.setRuleList(component.getRuleList());
-            componentExisting.setSubcomponents(component.getSubcomponents());
+            componentExisting.getRuleList().addAll(component.getRuleList());
+            componentExisting.getSubcomponents().addAll(component.getSubcomponents());
+            componentRepository.save(componentExisting);
+            for (Component savedSubcomponent : componentExisting.getSubcomponents()) {
+                savedSubcomponent.getComponentsPartOf().add(componentExisting);
+                componentRepository.save(savedSubcomponent);
+            }
         }
     }
 
