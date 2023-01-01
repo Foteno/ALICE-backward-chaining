@@ -6,5 +6,5 @@ import lt.vu.kursinis.models.Fact;
 import java.util.List;
 
 public interface ComponentOperations {
-    List<Component> findByConsequents(List<Fact> consequents);
+    List<Component> findByFactAttributes(List<Fact> consequents);
 }

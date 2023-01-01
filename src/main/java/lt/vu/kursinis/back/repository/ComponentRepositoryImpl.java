@@ -16,7 +16,7 @@ public class ComponentRepositoryImpl implements ComponentOperations {
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public List<Component> findByConsequents(List<Fact> consequents) {
-        return mongoTemplate.find(new Query(Criteria.where("ruleList.consequent").in(consequents)), Component.class);
+    public List<Component> findByFactAttributes(List<Fact> attributes) {
+        return mongoTemplate.find(new Query(Criteria.where("componentAttributes").in(attributes)), Component.class);
     }
 }

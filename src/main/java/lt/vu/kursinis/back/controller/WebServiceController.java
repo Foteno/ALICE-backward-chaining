@@ -3,9 +3,9 @@ package lt.vu.kursinis.back.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import lt.vu.kursinis.back.dto.AnswerDTO;
-import lt.vu.kursinis.back.dto.ComponentDTO;
-import lt.vu.kursinis.back.service.BackwardChainingService;
-import lt.vu.kursinis.back.service.ComponentService;
+import lt.vu.kursinis.back.dto.FrontDTO;
+import lt.vu.kursinis.back.service.backwardChaining.BackwardChainingService;
+import lt.vu.kursinis.back.service.componentService.ComponentService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,18 +19,18 @@ import java.util.List;
 @RequiredArgsConstructor
 @CommonsLog
 @CrossOrigin
-public class WebServisuController {
+public class WebServiceController {
 
     private final BackwardChainingService backwardChainingService;
     private final ComponentService componentService;
 
     @GetMapping("/answer")
-    public List<String> getAnswer(@RequestBody AnswerDTO answerDTO) {
-        return backwardChainingService.getAnswer(answerDTO);
+    public List<String> analyseProblems(@RequestBody AnswerDTO answerDTO) {
+        return backwardChainingService.analyseProblems(answerDTO);
     }
 
     @GetMapping("/components")
-    public ComponentDTO getComponents() {
+    public FrontDTO getComponents() {
         return componentService.getComponentsTree();
     }
 }

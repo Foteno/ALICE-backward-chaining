@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 @Builder
 public class RuleDTO {
     private String id;
-    private String consequent;
-    private List<String> antecedents;
+    private String consequentId;
+    private List<String> antecedentsId;
 
     public static RuleDTO from(Rule rule) {
         return RuleDTO.builder()
                 .id(rule.getId())
-                .consequent(rule.getConsequent().getError())
-                .antecedents(rule.getAntecedents().stream()
-                        .map(Fact::getError)
+                .consequentId(rule.getConsequent().getId())
+                .antecedentsId(rule.getAntecedents().stream()
+                        .map(Fact::getId)
                         .collect(Collectors.toList()))
                 .build();
     }

@@ -1,0 +1,16 @@
+Component,Antecedent,Antecedent,Antecedent,Consequent,Quote,Article
+ACORDE,ACORDE1,ACORDE2,ACORDE3,ACORDE4,"ACORDE (the ALICE COsmic Ray DEtector) is an array of scintillator modules that will act as a cosmic ray trigger for ALICE calibration, as well as, multiple muon trigger to study high energy cosmic rays.",ACORDE
+,,SM1,SSD1,ACORDE3,,
+,,ACORDE2,ACORDE3,ACORDE1,,
+ALICE Detector Control System,CSP1,SM1,SSD1,DCS3,The main tasks of the ALICE Detector Control System (DCS) of any subdetector are the monitoring and control of the necessary signals to operate the subdetector at all times of the experiment.,ACORDE2
+,,DCS2,DCS3,DCS1,,
+Scintillator modules,,,SM2,SM1,"ACORDE (the ALICE COsmic Ray DEtector) is an array of scintillator modules that will act as a cosmic ray trigger for ALICE calibration, as well as, multiple muon trigger to study high energy cosmic rays.",ACORDE
+Scintillator signal discriminator,,,SSD2,SSD1,The signal of each ACORDE scintillator channel is applied to a leading edge discriminator.,ACORDE
+EMCal,,APD2,CSP2,EMCal3,"The EMCal enables triggering and full reconstruction of high energy jets in ALICE, and augments existing ALICE capabilities to measure high momentum photons and electrons.",EMCal
+,EMCal1,EMCal2,EMCal3,EMCal4,,
+,,,EMCal3,EMCal1,,
+Avalanche PhotoDiode,,,APD2,APD1,The active readout element of the EMCal detector is a radiation hard 5x5 mm2 active area Avalanche PhotoDiode (APD)...,EMCal
+Charge Sensitive Preamplifier,,,APD1,CSP1,The APD is connected directly to the back of a Charge Sensitive Preamplifier (CSP)...,EMCal
+,,,APD2,CSP1,,
+ALICE,DCS1,ACORDE4,EMCal4,ALICE3,,
+,,ALICE2,ALICE3,ALICE1,,

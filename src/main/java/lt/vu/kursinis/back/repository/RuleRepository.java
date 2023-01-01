@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface RuleRepository extends MongoRepository<Rule, String> {
     List<Rule> findByConsequent(Fact consequent);
+
+    List<Rule> findByAntecedents(Fact antecedent);
 }

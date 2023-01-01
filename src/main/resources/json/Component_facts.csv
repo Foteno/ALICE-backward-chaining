@@ -1,0 +1,23 @@
+Component,ID,Attribute,Error,Suggestion
+ALICE,ALICE1,ALICE is prepared for physics data taking run,ALICE cannot be prepared for physics run,Check if all connected components are powered
+,ALICE2,ALICE is powered,ALICE is not powered,Turn on ALICE main components
+,ALICE3,ALICE is fully connected,ALICE is not fully connected,Check if all main components are connected
+ACORDE,ACORDE1,ACORDE ready to operate,ACORDE is not ready to operate,Check connected components status
+,ACORDE2,ACORDE is powered,ACORDE is not powered,Turn on ACORDE
+,ACORDE3,ACORDE is receiving data,ACORDE is not receiving data,Check if all main components are connected
+,ACORDE4,ACORDE is detecting cosmic rays,ACORDE cannot start detecting cosmic rays,Check ACORDE data output
+ALICE Detector Control System,DCS1,DCS is online,DCS is not online,Check if all associated components are responsive to DCS
+,DCS2,DCS is powered,DCS is not powered,Turn on DCS
+,DCS3,DCS is receiving data,DCS is not receiving data,Connect required components to DCS
+Scintillator modules,SM1,Modules are ready to detect muons,Modules are not ready to detect muons,Check if Scintillator module controllers are operable
+,SM2,Modules are powered,Modules are not powered,Turn on all the modules
+Scintillator signal discriminator,SSD1,Discriminator is ready to compare scintillator signals,Discriminator is not ready to compare scintillator signals,Check if Scintillators are outputting signals
+,SSD2,Discriminator is powered,Discriminator is not powered,Turn on the discriminator
+EMCal,EMCal1,EMCal is ready to operate,EMCal is not ready to operate,Turn on connected components
+,EMCal2,EMCal is powered,EMCal is not powered,Turn on EMCal
+,EMCal3,EMCal is receiving data,EMCal is not receiving data,Connect all input devices
+,EMCal4,EMCal is prepared for high energy jet reconstruction,EMCal is not prepared for jet reconstruction,Make EMCal ready
+Avalanche PhotoDiode,APD1,APDs' gain is properly tuned,APDs do not have properly tuned gain,Tune APDs
+,APD2,APDs is powered,APDs are not powered,Turn on APDs
+Charge Sensitive Preamplifier,CSP1,CSP is receiving charge output from APD,CSP is not receiving any charge output from APD,Connect the APDs to CSP
+,CSP2,CSP is powered,CSP is not powered,Turn on CSP

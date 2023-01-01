@@ -1,5 +1,7 @@
 package lt.vu.kursinis.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -9,32 +11,33 @@ import java.util.Objects;
 
 @Data
 @Document(collection = "Facts")
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Fact {
 
     @Id
-    String id;
-    String error;
-
-    public Fact(String fact) {
-        this.error = fact;
-    }
-
+    private String id;
+    private String attribute;
+    private String error;
+    private String suggestion;
+    private boolean flagged;
+/*
     @Override
     public String toString() {
-        return this.error;
-    }
+        return this.attribute;
+    }*/
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fact fact = (Fact) o;
-        return error.equals(fact.error);
+        return id.equals(fact.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, error);
+        return Objects.hash(id, attribute, flagged);
     }
 }
