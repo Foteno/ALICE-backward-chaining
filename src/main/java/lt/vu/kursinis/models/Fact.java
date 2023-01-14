@@ -21,7 +21,6 @@ public class Fact {
     private String attribute;
     private String error;
     private String suggestion;
-    private boolean flagged;
 
     @Override
     public boolean equals(Object o) {
@@ -33,6 +32,6 @@ public class Fact {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, attribute, flagged);
+        return Objects.hash(id, attribute);
     }
 }

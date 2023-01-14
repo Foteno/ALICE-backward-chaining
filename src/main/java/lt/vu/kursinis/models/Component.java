@@ -11,11 +11,10 @@ import java.util.List;
 @Document(collection = "Components")
 public class Component {
 
-    List<Fact> componentAttributes = new ArrayList<>();
-
     @Id
     String id;
     String name;
+    List<Fact> componentAttributes = new ArrayList<>();
 
     public Component(String name) {
         this.name = name;
