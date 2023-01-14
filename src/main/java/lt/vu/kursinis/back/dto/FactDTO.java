@@ -13,7 +13,7 @@ public class FactDTO {
     public static FactDTO from(Fact fact) {
         return FactDTO.builder()
                 .id(fact.getId())
-                .attribute(fact.getAttribute())
+                .attribute(fact.getId())
                 .build();
     }
 }

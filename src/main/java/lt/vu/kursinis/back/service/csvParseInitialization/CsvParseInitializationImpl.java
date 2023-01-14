@@ -1,4 +1,4 @@
-package lt.vu.kursinis.back.service.jsonParseInitialization;
+package lt.vu.kursinis.back.service.csvParseInitialization;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
@@ -21,13 +21,13 @@ import java.util.Scanner;
 @Service
 @CommonsLog
 @RequiredArgsConstructor
-public class JsonParseInitializationImpl implements JsonParseInitialization {
+public class CsvParseInitializationImpl implements CsvParseInitialization {
 
     private final RuleRepository ruleRepository;
     private final FactRepository factRepository;
     private final ComponentRepository componentRepository;
 
-    public void instantiateComponentFromJson() {
+    public void instantiateComponentFromCsv() {
         ruleRepository.deleteAll();
         factRepository.deleteAll();
         componentRepository.deleteAll();
@@ -37,7 +37,7 @@ public class JsonParseInitializationImpl implements JsonParseInitialization {
 
     private void readRules() {
         try {
-            File myObj = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("json/Rules.csv")).toURI().getPath());
+            File myObj = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("initial/Rules.csv")).toURI().getPath());
             Scanner myReader = new Scanner(myObj);
 
             myReader.nextLine();//ignore first line
@@ -76,7 +76,7 @@ public class JsonParseInitializationImpl implements JsonParseInitialization {
 
     private void readComponents() {
         try {
-            File myObj = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("json/Component_facts.csv")).toURI().getPath());
+            File myObj = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("initial/Component_facts.csv")).toURI().getPath());
             Scanner myReader = new Scanner(myObj);
 
             myReader.nextLine();//ignore first line

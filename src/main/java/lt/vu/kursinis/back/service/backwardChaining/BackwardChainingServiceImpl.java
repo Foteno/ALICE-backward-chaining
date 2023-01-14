@@ -2,7 +2,7 @@ package lt.vu.kursinis.back.service.backwardChaining;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
-import lt.vu.kursinis.back.dto.AnswerDTO;
+import lt.vu.kursinis.back.dto.ErrorSuggestionDTO;
 import lt.vu.kursinis.back.repository.ComponentRepository;
 import lt.vu.kursinis.back.repository.FactRepository;
 import lt.vu.kursinis.back.repository.RuleRepository;
@@ -12,9 +12,7 @@ import lt.vu.kursinis.models.Rule;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,64 +23,56 @@ public class BackwardChainingServiceImpl implements BackwardChainingService {
     private final RuleRepository ruleRepository;
     private final FactRepository factRepository;
     private final ComponentRepository componentRepository;
-    private final Set<Fact> confirmedFacts = new HashSet<>();// maybe map key = errorname, value = component name
-    private List<Fact> initialFacts = new ArrayList<>();
+    private final List<Fact> trackedErrors = new ArrayList<>();
 
-    public List<String> analyseProblems(AnswerDTO answerDTO) {
-        Fact consequent = factRepository.findById(answerDTO.getGoal()).orElseThrow();
-        List<Fact> initialFacts = factRepository.findAllById(answerDTO.getInitialFacts());
+    public ErrorSuggestionDTO analyseProblems(List<String> initialFacts) {
+        Fact consequent = factRepository.findById("ALICE1").orElseThrow();
+        List<Fact> facts = factRepository.findAllById(initialFacts);
 
-        return backwardChaining(initialFacts, consequent);
+        return backwardChaining(facts, consequent);
     }
 
-    private List<String> backwardChaining(List<Fact> facts, Fact goal) {
+    private ErrorSuggestionDTO backwardChaining(List<Fact> facts, Fact goal) {
         List<Rule> rulesList = ruleRepository.findAll();
 
-        initialFacts = new ArrayList<>(facts);
+        trackedErrors.clear();
+        backwardChaining(rulesList, facts, goal, false);
+        if (trackedErrors.size() == 0) {
+            return new ErrorSuggestionDTO();
+        }
+        List<Fact> trackedErrorsUnique = trackedErrors.stream()
+                .distinct()
+                .collect(Collectors.toList());
 
-        List<Fact> currentGoals = new ArrayList<>();
-        boolean isChained = backwardChaining(rulesList, facts, goal, currentGoals);
+        List<Component> componentsFoundByError = componentRepository.findByFactAttributes(trackedErrorsUnique);
 
-        List<Component> komponentai = componentRepository.findByFactAttributes(confirmedFacts.stream().toList());
+        List<ErrorSuggestionDTO.ErrorSuggestion> errorSuggestions = trackedErrorsUnique.stream()
+                .map(error -> new ErrorSuggestionDTO.ErrorSuggestion(error.getId(), error.getError(), error.getSuggestion()))
+                .collect(Collectors.toList());
 
-        return komponentai.stream().map(Component::toString).collect(Collectors.toList());
+        List<String> componentsForAnswer = componentsFoundByError.stream()
+                .map(Component::getName)
+                .collect(Collectors.toList());
+
+        List<String> aa;
+
+        return new ErrorSuggestionDTO(errorSuggestions, componentsForAnswer);
     }
 
-    private boolean backwardChaining(List<Rule> ruleList, List<Fact> facts, Fact goal, List<Fact> currentGoals) {
-        if (facts.contains(goal)) {
-            confirmedFacts.add(goal);
-            return true;
-        }
-        if (currentGoals.contains(goal)) {
-            return false;
-        }
-
+    private void backwardChaining(List<Rule> ruleList, List<Fact> facts, Fact goal, boolean shouldAdd) {
         for (Rule rule : ruleList) {
-            if (goal.equals(rule.getConsequent())) {
-                boolean allTrue = true;
+            if (rule.getConsequent().equals(goal)) {
                 List<Fact> tempGoals = new ArrayList<>(rule.getAntecedents());
-                if (tempGoals.size() == 0) {
-                    break;
-                }
-                List<Fact> newCurrentGoals = new ArrayList<>(currentGoals);
 
-                newCurrentGoals.add(goal);
                 for (Fact subGoal : tempGoals) {
-                    if (!backwardChaining(ruleList, facts, subGoal, newCurrentGoals)) {
-                        allTrue = false;
+                    if (facts.contains(subGoal) || shouldAdd) {
+                        trackedErrors.add(subGoal);
+                        backwardChaining(ruleList, facts, subGoal, true);
+                        continue;
                     }
-                }
-
-
-                if (allTrue) {
-                    facts.add(goal);
-                    confirmedFacts.add(goal);
-                    return true;
-                } else {
-                    facts.removeIf(f -> !initialFacts.contains(f));
+                    backwardChaining(ruleList, facts, subGoal, false);
                 }
             }
         }
-        return false;
     }
 }

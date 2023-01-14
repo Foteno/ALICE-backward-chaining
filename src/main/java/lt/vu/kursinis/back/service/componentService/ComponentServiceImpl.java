@@ -33,4 +33,11 @@ public class ComponentServiceImpl implements ComponentService {
 
         return new FrontDTO(rules, facts);
     }
+
+    @Override
+    public List<FactDTO> getFacts() {
+        return factRepository.findAll().stream()
+                .map(FactDTO::from)
+                .collect(Collectors.toList());
+    }
 }
