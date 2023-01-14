@@ -22,11 +22,6 @@ public class Fact {
     private String error;
     private String suggestion;
     private boolean flagged;
-/*
-    @Override
-    public String toString() {
-        return this.attribute;
-    }*/
 
     @Override
     public boolean equals(Object o) {

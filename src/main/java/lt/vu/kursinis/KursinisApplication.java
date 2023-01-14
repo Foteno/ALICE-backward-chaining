@@ -13,8 +13,5 @@ public class KursinisApplication {
         CsvParseInitialization csvParseInitialization = SpringContext.getBean(CsvParseInitialization.class);
         csvParseInitialization.instantiateComponentFromCsv();
 
-        /*ForwardChainingService forwardChainingService = SpringContext.getBean(ForwardChainingService.class);
-        String[] flaggedFacts = {"DCS1"};
-        forwardChainingService.setFlaggedFacts(flaggedFacts);*/
     }
 }
