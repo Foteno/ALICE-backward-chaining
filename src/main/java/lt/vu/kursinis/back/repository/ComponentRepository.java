@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComponentRepository extends ComponentOperations, MongoRepository<Component, String> {
-    Component findByName(String name);
 }

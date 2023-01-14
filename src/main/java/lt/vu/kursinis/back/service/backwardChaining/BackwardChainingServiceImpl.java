@@ -54,8 +54,6 @@ public class BackwardChainingServiceImpl implements BackwardChainingService {
                 .map(Component::getName)
                 .collect(Collectors.toList());
 
-        List<String> aa;
-
         return new ErrorSuggestionDTO(errorSuggestions, componentsForAnswer);
     }
 
